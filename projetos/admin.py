@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.contrib import admin
 
 from .models import Problem, Project, Pacote
@@ -7,6 +9,7 @@ class ProblemAdmin(admin.ModelAdmin):
     list_display = ('title', 'pacote', 'colored_type', 'priority', 'complete' )
     list_filter = ('pacote__projeto', 'prob_type', 'priority','complete')
     search_fields = ('title',)
+    ordering = ['complete', 'priority']
 
 @admin.register(Pacote)
 class PacoteAdmin(admin.ModelAdmin):
