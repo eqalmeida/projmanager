@@ -2,7 +2,15 @@
 
 from django.contrib import admin
 
-from .models import Problem, Project, Pacote
+from .models import Problem, Project, Pacote, Note
+
+
+
+
+
+class NoteInline(admin.StackedInline):
+    model = Note
+    extra = 0
 
 @admin.register(Problem)
 class ProblemAdmin(admin.ModelAdmin):
@@ -10,6 +18,8 @@ class ProblemAdmin(admin.ModelAdmin):
     list_filter = ('pacote__projeto', 'prob_type', 'priority','complete')
     search_fields = ('title',)
     ordering = ['complete', 'priority']
+    inlines = [NoteInline,]
+
 
 @admin.register(Pacote)
 class PacoteAdmin(admin.ModelAdmin):

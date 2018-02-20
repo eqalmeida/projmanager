@@ -4,6 +4,8 @@
 from django.db import models
 from django.utils.html import format_html
 
+from django.contrib.auth.models import User
+
 class Project(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
@@ -24,7 +26,6 @@ class Pacote(models.Model):
 
     class Meta:
         unique_together = (('projeto','name'),)
-
 
 class Problem(models.Model):
 
@@ -87,3 +88,8 @@ class Problem(models.Model):
         verbose_name_plural = 'Problemas'
         
     
+class Note(models.Model):
+    problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    created_on = models.DateTimeField(auto_now_add=True)
+    text = models.TextField()
